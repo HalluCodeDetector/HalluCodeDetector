@@ -12,7 +12,7 @@ The comments in the getBLEUScores/getCodeBLEUScores/getMRCMScores/getPromptScore
 * question_jsonl_path: Path to Datasets\\human-eval.jsonl or Datasets\\mbpp.jsonl
 * filepath: Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
 
-Run main.py to get the experimental results.
+Run main.py to start the experiment.
 
 ## Datasets
 This folder contains the jsonl files of the HumanEval and mbpp datasets.
