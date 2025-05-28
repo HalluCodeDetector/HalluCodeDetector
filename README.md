@@ -8,10 +8,8 @@ This project is used to analyze Change Types and extract Dependency Contexts and
 * outputPath: The path to the output folder where the generated prompt are stored. (We provided our expiremental results in PromptAndResult folder in master branch)
 * jsonFilePath: The path to test.json. (test.json is provided in master branch)
 
-## Evaluate
-This folder contains some Python programs for evaluating the experimental results.<br /><br />
-**configuration.** Modify your custom configuration:
-* base_path: The path to the output folder where the generated test method are stored. (We provided our expiremental results in PromptAndResult folder in master branch)
+## Datasets
+This folder contains the jsonl files of the HumanEval and mbpp datasets.
 
 ## run_setup.py
 Before running the experiment, you need to run this program to download the data needed for the experiment.<br /><br />
