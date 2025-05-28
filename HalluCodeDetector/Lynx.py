@@ -37,7 +37,7 @@ def getLynxScores(question_jsonl_path, answer_json_path, size_per_question):
     answer = answers[i]
     prompt = f"Given the following QUESTION, TEST and ANSWER you must analyze the provided answer and and determine whether it passes the TEST. Output your final verdict by strictly following this format: \"PASS\" if the answer passes the TEST and \"FAIL\" if the answer does not pass the TEST. Show your reasoning.\n\n--\nQUESTION:\n{question}\n\n--\nTEST:\n[{test}]\n\n--\nANSWER:\n{answer}\n\n--\n\nYour output should be in JSON FORMAT with the keys \"REASONING\" and \"SCORE\":\n{{\"REASONING\": <your reasoning as bullet points>, \"SCORE\": <your final score>}}\n"
 
-    response: ChatResponse = chat(model='Lynx8B', messages=[
+    response: ChatResponse = chat(model='Lynx8B', messages=[ # model parameter is the path to the model
       {
         'role': 'user',
         'content': prompt,
