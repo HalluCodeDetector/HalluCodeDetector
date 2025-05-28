@@ -7,9 +7,12 @@ This folder contains the code for the experiment.
 The comments in the getBLEUScores/getCodeBLEUScores/getMRCMScores/getPromptScores/getOrdinaryLLMScores/getLynxScores function in HalluCodeDetectorWithBLEU.py/HalluCodeDetectorWithCodeBLEU.py/HalluCodeDetectorWithMRCM.py/HalluCodeDetectorWithPrompt.py/OrdinaryLLM.py/Lynx.py record the experimental results of different methods on different datasets.
 
 **configuration.** Modify your custom configuration in main.py:
-* testsetPath: The path to the Projects folder. (Projects folder is provided in master branch, it contains only two samples. You need to run run_setup.py to supplement the remaining samples)
-* outputPath: The path to the output folder where the generated prompt are stored. (We provided our expiremental results in PromptAndResult folder in master branch)
-* jsonFilePath: The path to test.json. (test.json is provided in master branch)
+* base_url: Used to specify the base URL for calling the OpenAI API
+* api_key: For OpenAI servers to verify identity
+* question_jsonl_path: Path to Datasets\\human-eval.jsonl or Datasets\\mbpp.jsonl
+* filepath: Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
+
+Run main.py to get the experimental results.
 
 ## Datasets
 This folder contains the jsonl files of the HumanEval and mbpp datasets.
