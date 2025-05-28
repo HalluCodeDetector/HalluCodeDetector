@@ -6,7 +6,7 @@ This folder contains the code for the experiment.
 
 The comments in the getBLEUScores/getCodeBLEUScores/getMRCMScores/getPromptScores/getOrdinaryLLMScores/getLynxScores function in HalluCodeDetectorWithBLEU.py/HalluCodeDetectorWithCodeBLEU.py/HalluCodeDetectorWithMRCM.py/HalluCodeDetectorWithPrompt.py/OrdinaryLLM.py/Lynx.py record the experimental results of different methods on different datasets.
 
-**configuration.** Modify your custom configuration in main.py:
+**configuration.** Modify your custom configuration in the main function of main.py:
 * base_url: Used to specify the base URL for calling the OpenAI API
 * api_key: For OpenAI servers to verify identity
 * question_jsonl_path: Path to Datasets\\human-eval.jsonl or Datasets\\mbpp.jsonl
