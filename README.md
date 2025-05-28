@@ -1,8 +1,11 @@
 # HalluCodeDetector
 Here is the relevant code and data for HalluCodeDetector.
 
-## AnalysisTool
-This project is used to analyze Change Types and extract Dependency Contexts and Caller Contexts to build prompt. In AnalysisTool\src\main\java\experiment\Usage.java, there is a specific example demonstrating how to use this project for prompt construction. You can run AnalysisTool\src\main\java\experiment\MakePrompt.java to experiment.<br /><br />
+## HalluCodeDetector
+This folder contains the code for the experiment.
+
+The comments in the getBLEUScores/getCodeBLEUScores/getMRCMScores/getPromptScores/getOrdinaryLLMScores/getLynxScores function in HalluCodeDetectorWithBLEU.py/HalluCodeDetectorWithCodeBLEU.py/HalluCodeDetectorWithMRCM.py/HalluCodeDetectorWithPrompt.py/OrdinaryLLM.py/Lynx.py record our experimental results
+
 **configuration.** Modify your custom configuration in AnalysisTool\src\main\java\experiment\MakePrompt.java:
 * testsetPath: The path to the Projects folder. (Projects folder is provided in master branch, it contains only two samples. You need to run run_setup.py to supplement the remaining samples)
 * outputPath: The path to the output folder where the generated prompt are stored. (We provided our expiremental results in PromptAndResult folder in master branch)
