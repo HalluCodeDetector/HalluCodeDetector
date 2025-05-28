@@ -12,6 +12,8 @@ The comments in the getBLEUScores/getCodeBLEUScores/getMRCMScores/getPromptScore
 * question_jsonl_path: Path to Datasets\\human-eval.jsonl or Datasets\\mbpp.jsonl
 * filepath: Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
 
+For the Lynx method, you need to download the LYNX model according to the instructions at https://www.patronus.ai/blog/lynx-state-of-the-art-open-source-hallucination-detection-model and modify the model parameter of the chat function to the path to the LYNX model.
+
 Run main.py to start the experiment.
 
 ## Datasets
