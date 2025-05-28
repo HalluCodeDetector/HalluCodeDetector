@@ -15,8 +15,5 @@ For the HumanEval dataset, we use the content of the "prompt" section to get the
 
 For the mbpp dataset, we concatenate the contents of the "prompt" and "code" sections and use this content to get the answer of the LLM.
 
-## run_setup.py
-Before running the experiment, you need to run this program to download the data needed for the experiment.<br /><br />
-**configuration.** Modify your custom configuration:
-* output_folder: The path to the Projects folder. (Projects folder is provided in master branch, it contains only two samples. You need to run run_setup.py to supplement the remaining samples)
-* json_path: The path to test.json. (test.json is provided in master branch)
+## LLMAnswers
+This folder contains DeepSeek-V3's answers to the HumanEval and mbpp datasets.
