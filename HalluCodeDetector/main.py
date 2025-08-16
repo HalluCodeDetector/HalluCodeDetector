@@ -95,12 +95,9 @@ if __name__ == "__main__":
     model = "GPT-4o" # The LLM for HalluCodeDetectorWithPrompt and OrdinaryLLM
     client = OpenAI(api_key=api_key, base_url=base_url)
 
-    # question_jsonl_path = r"..\\Datasets\\human-eval.jsonl" # Path to Datasets\\human-eval.jsonl or Datasets\\mbpp.jsonl
-    # question_jsonl_path = r"D:\桌面\human-eval.jsonl"
-    question_jsonl_path = r"D:\桌面\mbpp.jsonl"
+    question_jsonl_path = r"..\\Datasets\\HumanEvalPlus.jsonl" # Path to Datasets\\HumanEvalPlus.jsonl or Datasets\\mbpp.jsonl
 
-    # filepath = r"D:\桌面\HumanEval_deepseek-v3_output.json" # Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
-    filepath = r"D:\桌面\mbpp_deepseek-v3_output.json"  # Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
+    filepath = r"..\\HumanEvalPlus_deepseek-v3_output.json" # Path to LLMAnswers\\HumanEvalPlus_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
 
     size_per_question = 10
 
