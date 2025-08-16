@@ -31,12 +31,27 @@ def compute_feature_weights(codes):
     lev_ratio_scores = Calculate_SimilarityScore(codes, weights=[0, 0, 0, 1])
 
     original_weights = []
-    original_weights.append(np.var(ast_sim_scores))
-    original_weights.append(np.var(dataflow_sim_scores))
-    original_weights.append(np.var(jaccard_sim_scores))
-    original_weights.append(np.var(lev_ratio_scores))
-    sum = np.sum(original_weights)
+    if np.var(ast_sim_scores) != 0:
+        original_weights.append(1.0 / np.var(ast_sim_scores))
+    else:
+        original_weights.append(1)
 
+    if np.var(dataflow_sim_scores) != 0:
+        original_weights.append(1.0 / np.var(dataflow_sim_scores))
+    else:
+        original_weights.append(1)
+
+    if np.var(jaccard_sim_scores) != 0:
+        original_weights.append(1.0 / np.var(jaccard_sim_scores))
+    else:
+        original_weights.append(1)
+
+    if np.var(lev_ratio_scores) != 0:
+        original_weights.append(1.0 / np.var(lev_ratio_scores))
+    else:
+        original_weights.append(1)
+
+    sum = np.sum(original_weights)
     ast_sim_matrix = build_similarity_matrix(codes, weights=[1, 0, 0, 0])
     dataflow_sim_matrix = build_similarity_matrix(codes, weights=[0, 1, 0, 0])
     jaccard_sim_matrix = build_similarity_matrix(codes, weights=[0, 0, 1, 0])
@@ -47,7 +62,7 @@ def compute_feature_weights(codes):
 
     weights = []
     for i in range(0, len(original_weights)):
-        weights.append(0.25*1.2 - original_weights[i]/sum*0.2)
+        weights.append(original_weights[i] / sum)
 
     return weights, weights[0]*ast_sim_matrix + weights[1]*dataflow_sim_matrix + weights[2]*jaccard_sim_matrix + weights[3]*lev_sim_matrix
 

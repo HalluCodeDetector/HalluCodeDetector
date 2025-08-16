@@ -2,6 +2,7 @@ import json
 from matplotlib import pyplot as plt
 from sklearn.metrics import precision_recall_curve, auc, roc_curve
 from openai import OpenAI
+from HalluCodeDetectorWithMETEOR import getMETEORScores
 from HalluCodeDetectorWithBLEU import getBLEUScores
 from HalluCodeDetectorWithCodeBLEU import getCodeBLEUScores
 from HalluCodeDetectorWithMRCM import getMRCMScores
@@ -19,8 +20,11 @@ def compute_auroc(y_true, y_score):
     roc_auc = auc(fpr, tpr)
     return fpr, tpr, roc_auc
 
-def paint_PRC(y_true, scores_BLEU=None, scores_CodeBLEU=None, scores_Prompt=None, scores_MRCM=None, scores_OrdinaryLLM=None, scores_LYNX=None):
+def paint_PRC(y_true, scores_METEOR=None, scores_BLEU=None, scores_CodeBLEU=None, scores_Prompt=None, scores_MRCM=None, scores_OrdinaryLLM=None, scores_LYNX=None):
     plt.figure(figsize=(8, 6))
+    if scores_METEOR is not None:
+        precision, recall, aupr = compute_aupr(y_true, scores_METEOR)
+        plt.plot(recall, precision, color='y', label=f'HalluCD-METEOR (AUPRC = {aupr:.2f})')
     if scores_BLEU is not None:
         precision, recall, aupr = compute_aupr(y_true, scores_BLEU)
         plt.plot(recall, precision, color='b', label=f'HalluCD-BLEU (AUPRC = {aupr:.2f})')
@@ -51,8 +55,11 @@ def paint_PRC(y_true, scores_BLEU=None, scores_CodeBLEU=None, scores_Prompt=None
     plt.grid(True, alpha=0.3)
     plt.show()
 
-def paint_ROC(y_true, scores_BLEU=None, scores_CodeBLEU=None, scores_Prompt=None, scores_MRCM=None, scores_OrdinaryLLM=None, scores_LYNX=None):
+def paint_ROC(y_true, scores_METEOR=None, scores_BLEU=None, scores_CodeBLEU=None, scores_Prompt=None, scores_MRCM=None, scores_OrdinaryLLM=None, scores_LYNX=None):
     plt.figure(figsize=(8, 6))
+    if scores_METEOR is not None:
+        fpr, tpr, auc = compute_auroc(y_true, scores_METEOR)
+        plt.plot(fpr, tpr, color='y', label=f'HalluCD-METEOR (AUROC = {auc:.2f})')
     if scores_BLEU is not None:
         fpr, tpr, auc = compute_auroc(y_true, scores_BLEU)
         plt.plot(fpr, tpr, color='b', label=f'HalluCD-BLEU (AUROC = {auc:.2f})')
@@ -88,11 +95,16 @@ if __name__ == "__main__":
     model = "GPT-4o" # The LLM for HalluCodeDetectorWithPrompt and OrdinaryLLM
     client = OpenAI(api_key=api_key, base_url=base_url)
 
-    question_jsonl_path = r"..\\Datasets\\human-eval.jsonl" # Path to Datasets\\human-eval.jsonl or Datasets\\mbpp.jsonl
-    filepath = r"D:\桌面\HumanEval_deepseek-v3-250324_output.json" # Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
+    # question_jsonl_path = r"..\\Datasets\\human-eval.jsonl" # Path to Datasets\\human-eval.jsonl or Datasets\\mbpp.jsonl
+    # question_jsonl_path = r"D:\桌面\human-eval.jsonl"
+    question_jsonl_path = r"D:\桌面\mbpp.jsonl"
+
+    # filepath = r"D:\桌面\HumanEval_deepseek-v3_output.json" # Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
+    filepath = r"D:\桌面\mbpp_deepseek-v3_output.json"  # Path to LLMAnswers\\HumanEval_deepseek-v3_output.json or LLMAnswers\\HumanEval_deepseek-v3_output.json
 
     size_per_question = 10
 
+    scores_METEOR = getMETEORScores(filepath, size_per_question)
     scores_BLEU = getBLEUScores(filepath, size_per_question)
     scores_CodeBLEU = getCodeBLEUScores(filepath, size_per_question)
     scores_Prompt = getPromptScores(filepath, size_per_question, base_url, api_key, model)
@@ -110,5 +122,5 @@ if __name__ == "__main__":
         else:
             y_true.append(0)
 
-    paint_PRC(y_true, scores_BLEU=scores_BLEU, scores_CodeBLEU=scores_CodeBLEU, scores_Prompt=scores_Prompt, scores_MRCM=scores_MRCM, scores_OrdinaryLLM=scores_OrdinaryLLM, scores_LYNX=scores_LYNX)
-    paint_ROC(y_true, scores_BLEU=scores_BLEU, scores_CodeBLEU=scores_CodeBLEU, scores_Prompt=scores_Prompt, scores_MRCM=scores_MRCM, scores_OrdinaryLLM=scores_OrdinaryLLM, scores_LYNX=scores_LYNX)
+    paint_PRC(y_true, scores_METEOR=scores_METEOR, scores_BLEU=scores_BLEU, scores_CodeBLEU=scores_CodeBLEU, scores_Prompt=scores_Prompt, scores_MRCM=scores_MRCM, scores_OrdinaryLLM=scores_OrdinaryLLM, scores_LYNX=scores_LYNX)
+    paint_ROC(y_true, scores_METEOR=scores_METEOR, scores_BLEU=scores_BLEU, scores_CodeBLEU=scores_CodeBLEU, scores_Prompt=scores_Prompt, scores_MRCM=scores_MRCM, scores_OrdinaryLLM=scores_OrdinaryLLM, scores_LYNX=scores_LYNX)
